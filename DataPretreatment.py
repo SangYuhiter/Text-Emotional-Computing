@@ -85,7 +85,6 @@ def merge_labelled_data():
                 if file[-4:] != "data":
                     lines = [line.strip() + "\n" for line in
                              open(data_dir + "/" + file, "r", encoding="utf-8").readlines()]
-                    print(len(lines))
                     f.writelines(lines)
 
 
