@@ -22,7 +22,7 @@ def count_letter_frequency():
                 letter_frequency_dict[word] = 1
             else:
                 letter_frequency_dict[word] += 1
-    with open("Analysis/letter_frequence", "w", encoding="utf-8") as f:
+    with open("Analysis/letter_frequency", "w", encoding="utf-8") as f:
         for item in sorted(letter_frequency_dict.items(), key=lambda d: d[1], reverse=True):
             f.write(str(item[0]) + "\t" + str(item[1]) + "\n")
 
@@ -42,7 +42,7 @@ def count_word_frequency():
                 word_frequency_dict[word] = 1
             else:
                 word_frequency_dict[word] += 1
-    with open("Analysis/word_frequence", "w", encoding="utf-8") as f:
+    with open("Analysis/word_frequency", "w", encoding="utf-8") as f:
         for item in sorted(word_frequency_dict.items(), key=lambda d: d[1], reverse=True):
             f.write(str(item[0]) + "\t" + str(item[1]) + "\n")
 
@@ -72,6 +72,6 @@ def count_sentence_length_frequency():
 
 
 if __name__ == '__main__':
-    # count_letter_frequency()
-    # count_word_frequency()
+    count_letter_frequency()
+    count_word_frequency()
     count_sentence_length_frequency()
