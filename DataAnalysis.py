@@ -16,15 +16,22 @@ def count_letter_frequency():
     labelled_data_path = "Data/sentiment-data/pnn_annotated.txt"
     lines = [line.strip().split("\t") for line in open(labelled_data_path, "r", encoding="utf-8").readlines()]
     letter_frequency_dict = {}
+    letter_count = 0
     for line in lines:
+        letter_count += len(line[1])
         for word in line[1]:
             if word not in letter_frequency_dict:
                 letter_frequency_dict[word] = 1
             else:
                 letter_frequency_dict[word] += 1
+    print("总字数：%d" % letter_count)
     with open("Analysis/letter_frequency", "w", encoding="utf-8") as f:
+        f.write("字\t频数\t百分比\t累计\n")
+        add_temp = 0
         for item in sorted(letter_frequency_dict.items(), key=lambda d: d[1], reverse=True):
-            f.write(str(item[0]) + "\t" + str(item[1]) + "\n")
+            add_temp += int(item[1])
+            f.write("%s\t%4.d\t%4.2f\t%4.2f\n"
+                    % (item[0], int(item[1]), (int(item[1]) / letter_count * 100), (add_temp / letter_count * 100)))
 
 
 def count_word_frequency():
@@ -35,16 +42,23 @@ def count_word_frequency():
     labelled_data_path = "Data/sentiment-data/pnn_annotated.txt"
     lines = [line.strip().split("\t") for line in open(labelled_data_path, "r", encoding="utf-8").readlines()]
     word_frequency_dict = {}
+    word_count = 0
     for line in lines:
         seg_line = segment_hanlp(line[1])
+        word_count += len(seg_line)
         for word in seg_line:
             if word not in word_frequency_dict:
                 word_frequency_dict[word] = 1
             else:
                 word_frequency_dict[word] += 1
+    print("总词数：%d" % word_count)
     with open("Analysis/word_frequency", "w", encoding="utf-8") as f:
+        f.write("词\t频数\t百分比\t累计\n")
+        add_temp = 0
         for item in sorted(word_frequency_dict.items(), key=lambda d: d[1], reverse=True):
-            f.write(str(item[0]) + "\t" + str(item[1]) + "\n")
+            add_temp += item[1]
+            f.write("%s\t%4.d\t%4.2f\t%4.2f\n" % (
+                item[0], item[1], (item[1] / word_count * 100), (add_temp / word_count * 100)))
 
 
 def count_sentence_length_frequency():
@@ -62,6 +76,7 @@ def count_sentence_length_frequency():
         else:
             sentence_length_dict[len(line[1])] += 1
     sorted_dict = sorted(sentence_length_dict.items(), key=lambda d: d[0], reverse=False)
+    print("总句子数：%d" % sentence_count)
     with open("Analysis/sentence_length_frequency", "w", encoding="utf-8") as f:
         f.write("长度\t频数\t百分比\t累计\n")
         add_temp = 0
