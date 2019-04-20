@@ -17,3 +17,11 @@
 #### letter_frequency:字频统计结果
 #### word_frequency:词频统计结果
 #### sentence_length_frequency:句子长度统计结果
+
+### fastText:储存fastText训练数据和模型
+#### test_data、test_data_*:测试集
+#### train_data:训练集
+#### model\train 训练后的模型
+
+### template:前端界面模板（input.html）
+#### run.py:flask运行主文件
